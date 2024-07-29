@@ -4,6 +4,7 @@ use axum::Json;
 use diesel::dsl::IntervalDsl;
 use diesel::prelude::*;
 use diesel_async::RunQueryDsl;
+use tracing::info;
 use uuid::Uuid;
 
 use crate::handlers::orders_requests::NewOrder;
@@ -24,8 +25,10 @@ pub async fn get_list_by_table_id(
         .load(&mut conn)
         .await
         .map_err(internal_error)?;
+    info!("List orders {:?}: {:?}", table_id_from_path, res.len());
     return Ok(Json(res));
 }
+
 pub async fn create_order(State(state): State<AppState>,
                           Json(order_request): Json<NewOrder>
 ) -> Result<Json<OrderModel>, (StatusCode, String)> {
@@ -43,6 +46,7 @@ pub async fn create_order(State(state): State<AppState>,
         .get_result(&mut conn)
         .await
         .map_err(internal_error);
+    info!("Created new order: {:?}", insert_result);
     Ok(Json(insert_result?))
 }
 
@@ -61,7 +65,10 @@ pub async fn delete_order(
 
     match delete_result {
         Ok(0) => Err((StatusCode::NOT_FOUND, "Order not found".to_string())),
-        Ok(_) => Ok(StatusCode::NO_CONTENT),
+        Ok(_) => {
+            info!("delete order: {:?}", id_to_delete);
+            Ok(StatusCode::NO_CONTENT)
+        },
         _ => Err((StatusCode::NOT_FOUND, "Order not found".to_string()))
     }
 }
