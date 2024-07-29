@@ -11,14 +11,13 @@ diesel migration run
 ```
 to run integration tests
 ```
-# run server
-cargo run 
 cargo test integration_test::
-
 ```
 to run stress tests
 ```bash
-
+# run server
+cargo run 
+cargo test stress_test::
 
 ```
 ## Order API
