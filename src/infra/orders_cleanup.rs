@@ -1,13 +1,8 @@
 use std::time::Duration;
 
-use chrono::NaiveDateTime;
-use diesel::associations::HasTable;
 use diesel::prelude::*;
-use diesel::row::NamedRow;
 use diesel_async::RunQueryDsl;
 use tokio::{spawn, time::interval};
-use tower_http::trace;
-use uuid::Uuid;
 
 use crate::infra::app_state::AppState;
 use crate::schema::orders::dsl::*;

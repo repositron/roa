@@ -1,3 +1,4 @@
+
 use reqwest::Client;
 use serde_json::json;
 use tokio::task;
@@ -5,6 +6,7 @@ use uuid::Uuid;
 
 use crate::routes;
 //use crate::schema::orders::table_id;
+
 
 async fn post_order(client: &Client, uuid: &Uuid) -> Result<(), reqwest::Error> {
     let payload = json!({
@@ -37,6 +39,7 @@ async fn delete_order(client: &Client, uuid: &Uuid) -> Result<(), reqwest::Error
     Ok(())
 }
 
+#[cfg(test)]
 #[tokio::test]
 async fn stress_test() {
     let num_requests = 100;

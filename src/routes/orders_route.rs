@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use axum::{
-    Router, routing::{get, post, delete}
+    Router, routing::{get, post}
 };
 use axum::body::Bytes;
 use axum::extract::MatchedPath;
@@ -9,10 +9,8 @@ use axum::http::{HeaderMap, Request, StatusCode};
 use axum::response::Response;
 use tower_http::{classify::ServerErrorsFailureClass, trace::TraceLayer};
 use tracing::{info_span, Span};
-//use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 use crate::infra::app_state::AppState;
-use crate::routes::health_route::health_check;
 use super::super::handlers;
 
 pub fn make_orders_route(state: AppState) -> Router<AppState> {

@@ -1,5 +1,5 @@
 use diesel::Insertable;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use uuid::Uuid;
 
 use crate::schema::orders;

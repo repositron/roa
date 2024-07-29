@@ -6,7 +6,7 @@ use diesel::prelude::*;
 use diesel_async::RunQueryDsl;
 use uuid::Uuid;
 
-use crate::handlers::requests::NewOrder;
+use crate::handlers::orders_requests::NewOrder;
 use crate::infra::app_state::AppState;
 use crate::infra::random_duration_gen::random_duration;
 use crate::models::order_model::OrderModel;

@@ -24,6 +24,7 @@ async fn create_orders_test_app() -> Router {
     return app;
 }
 
+#[cfg(test)]
 #[tokio::test]
 async fn when_an_order_is_posted_then_it_returns_the_complete_order_model() {
 
@@ -73,6 +74,7 @@ async fn when_an_order_is_posted_then_it_returns_the_complete_order_model() {
 
 }
 
+#[cfg(test)]
 #[tokio::test]
 async fn when_an_order_is_reposted_with_same_uuid_then_it_fails() {
 
@@ -113,6 +115,7 @@ async fn when_an_order_is_reposted_with_same_uuid_then_it_fails() {
 
 }
 
+#[cfg(test)]
 #[tokio::test]
 async fn when_an_order_is_created_then_it_can_be_deleted() {
 

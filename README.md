@@ -1,4 +1,26 @@
 # Restaurant Server
+
+## Setup
+Create postgres docker container
+```bash
+docker-compose up
+```
+using diesel cli to run migrations
+```bash
+diesel migration run
+```
+to run integration tests
+```
+# run server
+cargo run 
+cargo test integration_test::
+
+```
+to run stress tests
+```bash
+
+
+```
 ## Order API
 
 ### POST new Order

@@ -1,6 +1,5 @@
 use axum::{routing::get, Json, Router};
 use serde::Serialize;
-use std::time::Instant;
 use crate::infra::app_state::AppState;
 
 #[derive(Serialize)]
@@ -9,7 +8,6 @@ struct HealthResponse {
 }
 
 pub async fn health_check() -> Json<HealthResponse> {
-    let uptime = Instant::now().elapsed().as_secs();
     let response = HealthResponse {
         status: "OK",
     };

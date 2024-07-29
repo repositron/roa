@@ -1,4 +1,3 @@
-use axum::handler::{Handler, HandlerWithoutStateExt};
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 use tokio::net::TcpListener;
 use tracing_subscriber::layer::SubscriberExt;
