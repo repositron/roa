@@ -50,8 +50,6 @@ async fn when_an_order_is_posted_then_it_returns_the_complete_order_model() {
         .unwrap();
         //.expect("failed to create test server");
 
-
-
     assert_eq!(response.status(), StatusCode::OK);
    // assert_eq!(response.headers().get("content-type").unwrap(), "application/json");
     let response_bytes = response.into_body().collect().await.unwrap().to_bytes();
@@ -110,6 +108,37 @@ async fn when_an_order_is_reposted_with_same_uuid_then_it_fails() {
         .json(&order_body)
         .await;
     assert_eq!(response.status_code(), axum::http::StatusCode::INTERNAL_SERVER_ERROR);
+    // TODO:
    // assert_eq!(response.status_code(), axum::http::StatusCode::CONFLICT);
+
+}
+
+#[tokio::test]
+async fn when_an_order_is_created_then_it_can_be_deleted() {
+
+    let uuid = Uuid::new_v4().to_string();
+    let order_body = json!({
+        "id": uuid,
+        "tableId": 55,
+        "item": "food",
+    });
+
+    let app = create_orders_test_app().await;
+
+    let server = TestServer::new(app).expect("testserver not intialized");
+
+    let response = server
+        .post("/orders")
+        .content_type(mime::APPLICATION_JSON.as_ref())
+        .json(&order_body)
+        .await;
+    assert_eq!(response.status_code(), axum::http::StatusCode::OK);
+
+    let path = format!("/orders/{uuid}");
+    let response = server
+        .delete(&path)
+        .await;
+
+    assert_eq!(response.status_code(), axum::http::StatusCode::NO_CONTENT);
 
 }
